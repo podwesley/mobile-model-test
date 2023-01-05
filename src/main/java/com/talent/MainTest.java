@@ -2,6 +2,7 @@ package com.talent;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,7 @@ public class MainTest {
         desiredCapabilities.setCapability("appium:automationName", "uiautomator2");
         desiredCapabilities.setCapability("appium:appPackage", "com.ctappium");
         desiredCapabilities.setCapability("appium:appActivity", "com.ctappium.MainActivity");
+        //desiredCapabilities.setCapability(MobileCapabilityType.APP, Utils.findFilesResources("CTAppium_1_2.apk")); // Verifica se o app esta instalado caso negativo instala caso positivo reseta o app.
 
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
