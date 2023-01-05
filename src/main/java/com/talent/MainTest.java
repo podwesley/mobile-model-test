@@ -19,7 +19,7 @@ public class MainTest {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
         desiredCapabilities.setCapability("platformName", "Android");
-        desiredCapabilities.setCapability("appium:deviceName", "emulador");
+        desiredCapabilities.setCapability("appium:deviceName", "8ALX0UTGA"); //para ver os nomes dos dispositivos: adb devices
         desiredCapabilities.setCapability("appium:automationName", "uiautomator2");
         desiredCapabilities.setCapability("appium:appPackage", "com.ctappium");
         desiredCapabilities.setCapability("appium:appActivity", "com.ctappium.MainActivity");
