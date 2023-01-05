@@ -19,14 +19,10 @@ public class MainTest {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
         desiredCapabilities.setCapability("platformName", "Android");
-
-            desiredCapabilities.setCapability("appium:deviceName", "emulator");
-
-
+        desiredCapabilities.setCapability("appium:deviceName", "emulador");
         desiredCapabilities.setCapability("appium:automationName", "uiautomator2");
         desiredCapabilities.setCapability("appium:appPackage", "com.ctappium");
         desiredCapabilities.setCapability("appium:appActivity", "com.ctappium.MainActivity");
-
 
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
@@ -35,14 +31,11 @@ public class MainTest {
     }
 
     @Test
-    public void sampleTest() {
+    public void sampleTest(){
 
     }
 
-
-
-
-    @After
+   @After
     public void tearDown() {
         driver.quit();
     }
