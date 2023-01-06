@@ -54,6 +54,10 @@ public class MainTest {
     @Test
     public void iteracaoCombo () {
 
+        System.out.println("usando xpath");
+        // class[@attr='node detail']
+        //android.widget.TextView[@text='Formulário']
+        MobileElement element = (MobileElement) driver.findElement(By.xpath("//android.widget.TextView[@text='Formulário']"));
     }
 
     //@After
