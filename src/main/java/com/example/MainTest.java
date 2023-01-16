@@ -60,8 +60,7 @@ public class MainTest {
         System.out.println("usando xpath");
         // class[@attr='node detail']
         //android.widget.TextView[@text='Formulário']
-        MobileElement element = (MobileElement) driver.findElement(By.xpath("//android.widget.TextView[@text='Formulário']"));
-        element.click();
+        acessarMenuPrincipal("Formulário");
         MobileElement console = (MobileElement) driver.findElement(MobileBy.AccessibilityId("console"));
         console.click();
 
@@ -75,8 +74,7 @@ public class MainTest {
     @Test
     public void iteracaoSwichCheckBox() {
 
-        MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='Formulário']"));
-        element.click();
+        acessarMenuPrincipal("Formulário");
 
         MobileElement check = (MobileElement) driver.findElement(By.className("android.widget.CheckBox"));
 
@@ -93,6 +91,26 @@ public class MainTest {
         switc.click();
         Assert.assertEquals("true", check.getAttribute("checked"));
         Assert.assertEquals("false", switc.getAttribute("checked"));
+
+    }
+    
+    public void acessarMenuPrincipal(String menu) {
+        MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
+        element.click();
+    }
+
+    public void buttonCheckedAndSwitch (MobileElement element, String value) {
+
+        if(!element.getAttribute("checked").equals(value))
+            element.click();
+        Assert.assertEquals(value, element.getAttribute("checked"));
+    }
+
+    public void xpathExamples() {
+
+        /**
+         * //android.widget.TextView[starts-with(@text, 'Console:')]
+         */
 
     }
 
