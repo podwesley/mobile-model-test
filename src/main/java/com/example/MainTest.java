@@ -4,6 +4,7 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,11 +26,13 @@ public class MainTest {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
         desiredCapabilities.setCapability("platformName", "Android");
-        desiredCapabilities.setCapability("appium:deviceName", "emulator"); //para ver os nomes dos dispositivos: adb devices
+        desiredCapabilities.setCapability("appium:deviceName", "emulator-5554"); //para ver os nomes dos dispositivos: adb devices
         desiredCapabilities.setCapability("appium:automationName", "uiautomator2");
         desiredCapabilities.setCapability("appium:appPackage", "com.ctappium");
         desiredCapabilities.setCapability("appium:appActivity", "com.ctappium.MainActivity");
-        desiredCapabilities.setCapability(MobileCapabilityType.APP, Utils.findFilesResources("CTAppium_2_0.apk")); // Verifica se o app esta instalado caso negativo instala caso positivo reseta o app.
+        //desiredCapabilities.setCapability(MobileCapabilityType.APP, Utils.findFilesResources("CTAppium_2_0.apk")); // Verifica se o app esta instalado caso negativo instala caso positivo reseta o app.
+        desiredCapabilities.setCapability("newCommandTimeout", 1000); // wait for 1000 milliseconds to run new command
+
 
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
@@ -45,21 +48,30 @@ public class MainTest {
         List<MobileElement> elements = driver.findElements(By.className("android.widget.TextView"));
 
         elements.get(1).click();
-        WebElement nome = driver.findElement(MobileBy.AccessibilityId("nome"));
+        MobileElement nome = (MobileElement) driver.findElement(MobileBy.AccessibilityId("nome"));
         nome.sendKeys("wesley");
         Assert.assertEquals("wesley", nome.getText());
 
     }
 
     @Test
-    public void iteracaoCombo () {
+    public void iteracaoCombo() {
 
         System.out.println("usando xpath");
         // class[@attr='node detail']
         //android.widget.TextView[@text='Formulário']
         MobileElement element = (MobileElement) driver.findElement(By.xpath("//android.widget.TextView[@text='Formulário']"));
-    }
+        element.click();
+        MobileElement console = (MobileElement) driver.findElement(MobileBy.AccessibilityId("console"));
+        console.click();
 
+        MobileElement popup = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.CheckedTextView[@text='PS4']"));
+
+        Assert.assertEquals("PS4", popup.getText());
+        popup.click();
+
+    }
+    
     //@After
     public void tearDown() {
         driver.quit();
