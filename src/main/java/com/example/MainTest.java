@@ -93,6 +93,19 @@ public class MainTest {
         Assert.assertEquals("false", switc.getAttribute("checked"));
 
     }
+
+    @Test
+    public void iteracaoSwichCheckBoxMelhorado() {
+
+        acessarMenuPrincipal("Formulário");
+
+        MobileElement check = (MobileElement) driver.findElement(By.className("android.widget.CheckBox"));
+        MobileElement switc = (MobileElement) driver.findElement(MobileBy.AccessibilityId("switch"));
+
+        buttonCheckedAndSwitch(check, "false");
+        buttonCheckedAndSwitch(switc, "false");
+
+    }
     
     public void acessarMenuPrincipal(String menu) {
         MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
