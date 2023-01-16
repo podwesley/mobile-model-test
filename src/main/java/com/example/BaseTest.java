@@ -46,6 +46,11 @@ public class BaseTest {
         Assert.assertEquals(value, element.getAttribute("checked"));
     }
 
+    public void clicarPorTexto(String menu) {
+        MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
+        element.click();
+    }
+
     public void click(MobileElement element) {
         element.click();
     }

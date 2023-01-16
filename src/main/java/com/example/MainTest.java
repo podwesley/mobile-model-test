@@ -2,6 +2,7 @@ package com.example;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -75,8 +76,8 @@ public class MainTest extends BaseTest{
 
     }
 
-    //@After
+    @After
     public void tearDown() {
-        driver.quit();
+        driver.resetApp();
     }
 }
