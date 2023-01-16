@@ -71,7 +71,31 @@ public class MainTest {
         popup.click();
 
     }
-    
+
+    @Test
+    public void iteracaoSwichCheckBox() {
+
+        MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='Formulário']"));
+        element.click();
+
+        MobileElement check = (MobileElement) driver.findElement(By.className("android.widget.CheckBox"));
+
+        Assert.assertEquals("false", check.getAttribute("checked"));
+
+        MobileElement switc = (MobileElement) driver.findElement(MobileBy.AccessibilityId("switch"));
+
+        Assert.assertEquals("true", switc.getAttribute("checked"));
+        System.out.println("teste");
+
+
+        //Verificar estados alterados
+        check.click();
+        switc.click();
+        Assert.assertEquals("true", check.getAttribute("checked"));
+        Assert.assertEquals("false", switc.getAttribute("checked"));
+
+    }
+
     //@After
     public void tearDown() {
         driver.quit();
