@@ -1,10 +1,12 @@
 package com.example;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -34,26 +36,41 @@ public class BaseTest {
 
     }
 
-    public void acessarMenuPrincipal(String menu) {
+    public BaseTest acessarMenuPrincipal(String menu) {
         MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
         element.click();
+        return this;
     }
 
-    public void buttonCheckedAndSwitch (MobileElement element, String value) {
+    public BaseTest buttonCheckedAndSwitch(MobileElement element, String value) {
 
-        if(!element.getAttribute("checked").equals(value))
+        if (!element.getAttribute("checked").equals(value))
             element.click();
         Assert.assertEquals(value, element.getAttribute("checked"));
+        return this;
     }
 
-    public void clicarPorTexto(String menu) {
+    public BaseTest clicarPorTexto(String menu) {
         MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
         element.click();
+        return this;
     }
 
-    public void click(MobileElement element) {
+    public BaseTest click(WebElement element) {
         element.click();
+        return this;
     }
+
+    public BaseTest click(By by) {
+        driver.findElement(by).click();
+        return this;
+    }
+
+    public BaseTest type(By by, String value) {
+        driver.findElement(by).sendKeys(value);
+        return this;
+    }
+
 
     /***
      * This method types the value into a field of type input
@@ -61,7 +78,7 @@ public class BaseTest {
      * @param value
      * @return
      */
-    public void typeValue(MobileElement element, String value) {
+    public void typeValue(WebElement element, String value) {
         element.sendKeys(value);
     }
 
@@ -72,4 +89,21 @@ public class BaseTest {
          */
 
     }
+
+    public MobileElement elementBytext(String text) {
+        return (MobileElement) driver.findElement(By.xpath("//*[@text='" + text + "']"));
+    }
+
+    public MobileElement elementByClass(String className) {
+        return (MobileElement) driver.findElement(By.className(className));
+    }
+
+    public MobileElement elementByXpath(String xpath) {
+        return (MobileElement) driver.findElement(By.xpath(xpath));
+    }
+
+    public String obterTexto(String texto) {
+        return driver.findElement(By.xpath("//*[@text='" + texto + "']")).getText();
+    }
+
 }
