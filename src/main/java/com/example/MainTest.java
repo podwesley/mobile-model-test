@@ -95,7 +95,7 @@ public class MainTest extends BaseTest {
     public void deveAguardarSplashSumir () {
 
         acessarMenuPrincipal("Splash");
-        Assert.assertTrue("Não achou ",isTelaSplashVisivel("Splash!"));
+        Assert.assertTrue("Não achou ", isTelaSplashVisivel("Splash!"));
         aguardarElementoSumir(elementBytext("Splash!"));
     }
 
@@ -103,5 +103,21 @@ public class MainTest extends BaseTest {
         return existeElementoPorTexto(texto);
     }
 
+    @Test
+    public void deveConfirmarAlerta () {
+
+        acessarMenuPrincipal("Alertas")
+                .click(elementBytext("ALERTA CONFIRM"));
+
+        String tituloAlerta = obterTexto(By.id("android:id/alertTitle"));
+        Assert.assertEquals("Info", tituloAlerta);
+
+        click(elementBytext("CONFIRMAR"));
+        String mensagemAlerta = obterTexto(By.id("android:id/message"));
+        Assert.assertEquals("Confirmado", mensagemAlerta);
+
+        click(elementBytext("SAIR"));
+
+    }
 
 }

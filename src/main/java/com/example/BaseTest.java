@@ -1,9 +1,7 @@
 package com.example;
 
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -116,14 +114,23 @@ public class BaseTest {
         return driver.findElement(By.xpath("//*[@text='" + texto + "']")).getText();
     }
 
-    public void aguardarElementoSumir(MobileElement element){
+    public String obterTexto(By By) {
+        return driver.findElement(By).getText();
+    }
+
+    public void aguardarElementoSumir(MobileElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    public boolean existeElementoPorTexto (String texto) {
+    public boolean existeElementoPorTexto(String texto) {
         List elements = driver.findElements(By.xpath("//*[@text='" + texto + "']"));
         return elements.size() > 0;
+    }
+
+    public BaseTest efetuarValidacao(String texto) {
+        Assert.assertTrue("Não achou nenhum elemento", existeElementoPorTexto(texto));
+        return this;
     }
 
 
