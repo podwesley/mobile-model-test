@@ -91,5 +91,17 @@ public class MainTest extends BaseTest {
         Assert.assertEquals("Console: ps4",text);
     }
 
+    @Test
+    public void deveAguardarSplashSumir () {
+
+        acessarMenuPrincipal("Splash");
+        isTelaSplashVisivel("Splash!");
+        aguardarElementoSumir(elementBytext("Splash!"));
+    }
+
+    private boolean isTelaSplashVisivel (String texto) {
+        return existeElementoPorTexto(texto);
+    }
+
 
 }

@@ -3,14 +3,19 @@ package com.example;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -110,5 +115,16 @@ public class BaseTest {
     public String obterTexto(String texto) {
         return driver.findElement(By.xpath("//*[@text='" + texto + "']")).getText();
     }
+
+    public void aguardarElementoSumir(MobileElement element){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    public boolean existeElementoPorTexto (String texto) {
+        List elements = driver.findElements(By.xpath("//*[@text='" + texto + "']"));
+        return elements.size() > 0;
+    }
+
 
 }
