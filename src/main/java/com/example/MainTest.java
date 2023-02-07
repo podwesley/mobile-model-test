@@ -95,7 +95,7 @@ public class MainTest extends BaseTest {
     public void deveAguardarSplashSumir () {
 
         acessarMenuPrincipal("Splash");
-        isTelaSplashVisivel("Splash!");
+        Assert.assertTrue("Não achou ",isTelaSplashVisivel("Splash!"));
         aguardarElementoSumir(elementBytext("Splash!"));
     }
 
