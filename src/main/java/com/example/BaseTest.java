@@ -36,6 +36,11 @@ public class BaseTest {
 
     }
 
+    @After
+    public void tearDown() {
+        driver.resetApp();
+    }
+
     public BaseTest acessarMenuPrincipal(String menu) {
         MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
         element.click();

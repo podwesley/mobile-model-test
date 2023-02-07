@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-public class MainTest extends BaseTest{
+public class MainTest extends BaseTest {
 
     @Test
     public void editText() {
@@ -76,8 +76,20 @@ public class MainTest extends BaseTest{
 
     }
 
-    @After
-    public void tearDown() {
-        driver.resetApp();
+    @Test
+    public void cadastroEsperas() {
+
+        String console = "PS4";
+
+        acessarMenuPrincipal("Formulário").
+                click(elementByClass("android.widget.Spinner")).
+                click(elementBytext(console)).
+                click(elementBytext("SALVAR DEMORADO"));
+
+        String text = obterTexto("Console: ps4");
+
+        Assert.assertEquals("Console: ps4",text);
     }
+
+
 }
