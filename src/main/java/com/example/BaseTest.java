@@ -2,6 +2,7 @@ package com.example;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
@@ -212,7 +213,12 @@ public class BaseTest {
     }
 
 
-    private void scroll(double inicio, double fim) {
+    /***
+     * Scroll movimento baixo / cima
+     * @param inicio
+     * @param fim
+     */
+    public void scroll(double inicio, double fim) {
 
         Dimension size = driver.manage().window().getSize();
 
@@ -228,13 +234,38 @@ public class BaseTest {
                 .perform();
     }
 
-    private void swipe(double inicio, double fim) {
+    /***
+     * Swipe movimento esquerda / direita
+     * @param inicio
+     * @param fim
+     */
+    public void swipe(double inicio, double fim) {
 
         Dimension size = driver.manage().window().getSize();
 
         int y = size.height / 2;
         int start_x = (int) (size.width * inicio);
         int end_x = (int) (size.width * fim);
+
+        new TouchAction(driver)
+                .press(start_x, y)
+                .waitAction(Duration.ofMillis(500))
+                .moveTo(end_x, y)
+                .release()
+                .perform();
+    }
+
+    /**
+     * Swipe personalizado no webElement. 
+     * @param element
+     * @param inicio
+     * @param fim
+     */
+    private void swipe(MobileElement element, double inicio, double fim) {
+
+        int y = element.getLocation().y + ( element.getSize().height / 2);
+        int start_x = (int) (element.getSize().width * inicio);
+        int end_x = (int) (element.getSize().width * fim);
 
         new TouchAction(driver)
                 .press(start_x, y)
@@ -264,8 +295,13 @@ public class BaseTest {
         return this;
     }
 
-    public BaseTest swipeList() {
+    public BaseTest swipeLeft(String text) {
+        swipe(elementByXpath("//*[@text='"+text+"']/.."),0.1, 0.9);
+        return this;
+    }
 
+    public BaseTest swipeRight(String text) {
+        swipe(elementByXpath("//*[@text='"+text+"']/.."),0.9, 0.1);
         return this;
     }
 

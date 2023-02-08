@@ -234,15 +234,21 @@ public class MainTest extends BaseTest {
                 .efetuarValidacao("a esquerda");
     }
 
-    @Test
-    public void scrollUpTest() {
-
-    }
-
 
     @Test
     public void swipeListTest() {
 
+        acessarMenuPrincipal("Swipe List")
+                .swipeRight("Opção 1")
+                .click(elementByXpath("//*[@text='(+)']/.."))
+                .efetuarValidacao("Opção 1 (+)");
+
+        swipeRight("Opção 4")
+                .click(elementByXpath("//*[@text='(-)']/.."))
+                .efetuarValidacao("Opção 4 (-)");
+
+        swipeLeft("Opção 5 (-)")
+                .efetuarValidacao("Opção 5");
     }
 
     @Test
