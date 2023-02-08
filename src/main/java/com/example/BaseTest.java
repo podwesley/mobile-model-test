@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -63,12 +64,6 @@ public class BaseTest {
         if (!element.getAttribute("checked").equals(value))
             element.click();
         Assert.assertEquals(value, element.getAttribute("checked"));
-        return this;
-    }
-
-    public BaseTest clicarPorTexto(String menu) {
-        MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='" + menu + "']"));
-        element.click();
         return this;
     }
 
@@ -117,6 +112,10 @@ public class BaseTest {
 
     public MobileElement elementByAccessibilityId(String id) {
         return (MobileElement) driver.findElement(MobileBy.AccessibilityId(id));
+    }
+
+    public MobileElement elementId(String id) {
+        return (MobileElement) driver.findElement(By.id(id));
     }
 
     public MobileElement elementByXpath(String xpath) {
@@ -332,6 +331,20 @@ public class BaseTest {
 //			System.out.print("\"" + retorno[i] + "\", ");
         }
         return retorno;
+    }
+
+    public BaseTest entrarContextoWeb(){
+        Set<String> contextHandles = driver.getContextHandles();
+//		for(String valor: contextHandles) {
+//			System.out.println(valor);
+//		}
+        driver.context((String) contextHandles.toArray()[1]);
+        return this;
+    }
+
+    public BaseTest sairContextoWeb(){
+        driver.context((String) driver.getContextHandles().toArray()[0]);
+        return this;
     }
 
 

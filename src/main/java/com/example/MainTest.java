@@ -271,4 +271,24 @@ public class MainTest extends BaseTest {
 
     }
 
+    // quanto iniciar o appium setar o browser e tbm no emulador.
+    @Test
+    public void webViewTestEfetuarLogin() {
+
+        acessarMenuPrincipal("SeuBarriga Híbrido")
+                .esperar(3)
+                .entrarContextoWeb()
+                .typeValue(driver.findElement(By.id("email")), "a@a")
+                .typeValue(driver.findElement(By.id("senha")), "a")
+                .click(driver.findElement(By.id("//button[@type='submit']")));
+
+
+        String mensagem = elementByXpath("//div[@class='alert alert-success']").getText();
+        Assert.assertEquals("Bem vindo, a!", mensagem);
+
+        sairContextoWeb();
+
+
+    }
+
 }
