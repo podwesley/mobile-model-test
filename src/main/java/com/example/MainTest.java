@@ -191,7 +191,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void cliqueLongoTest () {
+    public void cliqueLongoTest() {
 
         acessarMenuPrincipal("Cliques")
                 .cliqueLongo()
@@ -200,7 +200,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void cliqueDuploTest () {
+    public void cliqueDuploTest() {
 
         acessarMenuPrincipal("Cliques")
                 .click(elementBytext("Clique Duplo"))
@@ -213,23 +213,42 @@ public class MainTest extends BaseTest {
     public void scrollDownTest() {
 
         aguardarElementoByXpath("//*[@text='Formulário']")
-                .scrollDown(0.9, 0.1) //90% e 10%
+                .scrollDown()  //90% e 10%
                 .acessarMenuPrincipal("Opção bem escondida")
                 .efetuarValidacao("Sucesso")
                 .efetuarValidacao("Você achou essa opção")
                 .click(elementBytext("OK"));
 
     }
+
     @Test
     public void swipeTest() {
         acessarMenuPrincipal("Swipe")
                 .efetuarValidacao("a esquerda")
-                .swipe(0.9,0.1)
+                .swipeRight()
                 .efetuarValidacao("você consegue")
                 .click(elementBytext("›"))
                 .efetuarValidacao("Chegar até o fim!")
-                .swipe(0.1,0.9)
+                .swipeLeft()
                 .click(elementBytext("‹"))
                 .efetuarValidacao("a esquerda");
     }
+
+    @Test
+    public void scrollUpTest() {
+
+    }
+
+
+    @Test
+    public void swipeListTest() {
+
+    }
+
+    @Test
+    public void dragAndDropTest() {
+
+
+    }
+
 }

@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +72,7 @@ public class BaseTest {
     }
 
     public BaseTest click(WebElement element) {
-        element.click();
+        aguardarElemento(element).click();
         return this;
     }
 
@@ -133,10 +135,15 @@ public class BaseTest {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    public BaseTest aguardarElementoByXpath (String xpath) {
+    public BaseTest aguardarElementoByXpath(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
         return this;
+    }
+
+    public WebElement aguardarElemento(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
 
@@ -161,12 +168,12 @@ public class BaseTest {
      * @param y
      * @return
      */
-    public BaseTest tapCordinate (int x , int y)  {
+    public BaseTest tapCordinate(int x, int y) {
         new TouchAction(driver).tap(x, y).perform();
         return this;
     }
 
-    public BaseTest esperar (int segundos) {
+    public BaseTest esperar(int segundos) {
         try {
             Thread.sleep(segundos * 1000L);
         } catch (InterruptedException e) {
@@ -180,7 +187,7 @@ public class BaseTest {
      * @param posicao
      * @return
      */
-    public BaseTest clicarSeekBar (double posicao) {
+    public BaseTest clicarSeekBar(double posicao) {
 
         int delta = 50;
 
@@ -204,7 +211,8 @@ public class BaseTest {
         return this;
     }
 
-    public BaseTest scrollDown(double inicio, double fim) {
+
+    private void scroll(double inicio, double fim) {
 
         Dimension size = driver.manage().window().getSize();
 
@@ -218,10 +226,9 @@ public class BaseTest {
                 .moveTo(x, end_y)
                 .release()
                 .perform();
-
-        return this;
     }
-    public BaseTest swipe(double inicio, double fim) {
+
+    private void swipe(double inicio, double fim) {
 
         Dimension size = driver.manage().window().getSize();
 
@@ -235,7 +242,37 @@ public class BaseTest {
                 .moveTo(end_x, y)
                 .release()
                 .perform();
+    }
+
+    public BaseTest scrollDown() {
+        scroll(0.9, 0.1);
+        return this;
+    }
+
+    public BaseTest scrollUp() {
+        scroll(0.1, 0.9);
+        return this;
+    }
+
+    public BaseTest swipeLeft() {
+        swipe(0.1, 0.9);
+        return this;
+    }
+
+    public BaseTest swipeRight() {
+        swipe(0.9, 0.1);
+        return this;
+    }
+
+    public BaseTest swipeList() {
 
         return this;
     }
+
+    public BaseTest dragAndDrop() {
+
+        return this;
+    }
+
+
 }
