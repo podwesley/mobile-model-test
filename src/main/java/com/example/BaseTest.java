@@ -163,6 +163,11 @@ public class BaseTest {
         return this;
     }
 
+    public BaseTest efetuarValidacaoArrays(String[] array) {
+        Assert.assertArrayEquals(array, obterLista());
+        return this;
+    }
+
     /***
      * clicar em uma cordenada especifica
      * @param x
@@ -256,7 +261,7 @@ public class BaseTest {
     }
 
     /**
-     * Swipe personalizado no webElement. 
+     * Swipe personalizado no webElement.
      * @param element
      * @param inicio
      * @param fim
@@ -305,9 +310,28 @@ public class BaseTest {
         return this;
     }
 
-    public BaseTest dragAndDrop() {
 
+    public BaseTest dragAndDrop(String origem, String destino) {
+        MobileElement inicio = (MobileElement) driver.findElement(By.xpath("//*[@text='"+origem+"']"));
+        MobileElement fim = (MobileElement) driver.findElement(By.xpath("//*[@text='"+destino+"']"));
+
+        new TouchAction(driver)
+                .longPress(inicio)
+                .moveTo(fim)
+                .release()
+                .perform();
         return this;
+    }
+
+    private String[] obterLista() {
+        List<MobileElement> elements =  driver.findElements(By.className("android.widget.TextView"));
+
+        String[] retorno = new String[elements.size()];
+        for(int i = 0; i < elements.size(); i++){
+            retorno[i] = elements.get(i).getText();
+//			System.out.print("\"" + retorno[i] + "\", ");
+        }
+        return retorno;
     }
 
 

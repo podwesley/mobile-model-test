@@ -254,6 +254,20 @@ public class MainTest extends BaseTest {
     @Test
     public void dragAndDropTest() {
 
+        String[] estadoInicial = new String[]{"Esta", "é uma lista", "Drag em Drop!", "Faça um clique longo,", "e arraste para", "qualquer local desejado."};
+        String[] estadoIntermediario = new String[]{"é uma lista", "Drag em Drop!", "Faça um clique longo,", "e arraste para", "Esta", "qualquer local desejado."};
+        String[] estadoFinal = new String[]{"Faça um clique longo,", "é uma lista", "Drag em Drop!", "e arraste para", "Esta", "qualquer local desejado."};
+
+
+        aguardarElementoByXpath("//*[@text='Formulário']")
+                .scrollDown()  //90% e 10%
+                .acessarMenuPrincipal("Drag and drop")
+                .esperar(3)
+                .efetuarValidacaoArrays(estadoInicial)
+                .dragAndDrop("Esta", "e arraste para")
+                .efetuarValidacaoArrays(estadoIntermediario)
+                .dragAndDrop("Faça um clique longo,", "é uma lista").
+                efetuarValidacaoArrays(estadoFinal);
 
     }
 
