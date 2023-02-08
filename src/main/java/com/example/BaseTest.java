@@ -133,6 +133,13 @@ public class BaseTest {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
+    public BaseTest aguardarElementoByXpath (String xpath) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        return this;
+    }
+
+
     public boolean existeElementoPorTexto(String texto) {
         List elements = driver.findElements(By.xpath("//*[@text='" + texto + "']"));
         return elements.size() > 0;
@@ -197,4 +204,21 @@ public class BaseTest {
         return this;
     }
 
+    public BaseTest scrollDown(double inicio, double fim) {
+
+        Dimension size = driver.manage().window().getSize();
+
+        int x = size.width / 2;
+        int start_y = (int) (size.height * inicio);
+        int end_y = (int) (size.height * fim);
+
+        new TouchAction(driver)
+                .press(x, start_y)
+                .waitAction(Duration.ofMillis(500))
+                .moveTo(x, end_y)
+                .release()
+                .perform();
+
+        return this;
+    }
 }

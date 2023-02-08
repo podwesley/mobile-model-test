@@ -209,4 +209,15 @@ public class MainTest extends BaseTest {
 
     }
 
+    @Test
+    public void scrollDownTest() {
+
+        aguardarElementoByXpath("//*[@text='Formulário']")
+                .scrollDown(0.9, 0.1) //90% e 10%
+                .acessarMenuPrincipal("Opção bem escondida")
+                .efetuarValidacao("Sucesso")
+                .efetuarValidacao("Você achou essa opção")
+                .click(elementBytext("OK"));
+
+    }
 }
