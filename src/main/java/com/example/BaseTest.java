@@ -2,14 +2,18 @@ package com.example;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.LongPressOptions;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -174,7 +178,9 @@ public class BaseTest {
      * @return
      */
     public BaseTest tapCordinate(int x, int y) {
-        new TouchAction(driver).tap(x, y).perform();
+        new TouchAction<>(driver)
+                .tap(PointOption.point(new Point(x, y)))
+                .perform();
         return this;
     }
 
@@ -203,14 +209,17 @@ public class BaseTest {
         int xInicial = seek.getLocation().x + delta;
         int x = (int) (xInicial + ((seek.getSize().width - 2 * delta) * posicao));
 
-        new TouchAction(driver).tap(x, y).perform();
+        new TouchAction<>(driver).tap(PointOption.point(new Point(x, y))).perform();
 
         return this;
     }
 
     public BaseTest cliqueLongo() {
-        new TouchAction(driver)
-                .longPress(driver.findElement(By.xpath("//*[@text='Clique Longo']")))
+
+        MobileElement element = (MobileElement) driver.findElement(By.xpath("//*[@text='Clique Longo']"));
+
+        new TouchAction<>(driver)
+                .longPress(PointOption.point(element.getCenter()))
                 .release()
                 .perform();
         return this;
@@ -230,18 +239,16 @@ public class BaseTest {
         int start_y = (int) (size.height * inicio);
         int end_y = (int) (size.height * fim);
 
-        new TouchAction(driver)
-                .press(x, start_y)
-                .waitAction(Duration.ofMillis(500))
-                .moveTo(x, end_y)
+        new TouchAction<>(driver)
+                .press(PointOption.point(new Point(x, start_y)))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+                .moveTo(PointOption.point(new Point(x, end_y)))
                 .release()
                 .perform();
     }
 
     /***
      * Swipe movimento esquerda / direita
-     * @param inicio
-     * @param fim
      */
     public void swipe(double inicio, double fim) {
 
@@ -252,29 +259,30 @@ public class BaseTest {
         int end_x = (int) (size.width * fim);
 
         new TouchAction(driver)
-                .press(start_x, y)
-                .waitAction(Duration.ofMillis(500))
-                .moveTo(end_x, y)
+                .press(PointOption.point(new Point(start_x, y)))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+                .moveTo(PointOption.point(new Point(end_x, y)))
                 .release()
                 .perform();
     }
 
     /**
      * Swipe personalizado no webElement.
+     *
      * @param element
      * @param inicio
      * @param fim
      */
     private void swipe(MobileElement element, double inicio, double fim) {
 
-        int y = element.getLocation().y + ( element.getSize().height / 2);
+        int y = element.getLocation().y + (element.getSize().height / 2);
         int start_x = (int) (element.getSize().width * inicio);
         int end_x = (int) (element.getSize().width * fim);
 
-        new TouchAction(driver)
-                .press(start_x, y)
-                .waitAction(Duration.ofMillis(500))
-                .moveTo(end_x, y)
+        new TouchAction<>(driver)
+                .press(PointOption.point(new Point(start_x, y)))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+                .moveTo(PointOption.point(new Point(end_x, y)))
                 .release()
                 .perform();
     }
@@ -300,40 +308,41 @@ public class BaseTest {
     }
 
     public BaseTest swipeLeft(String text) {
-        swipe(elementByXpath("//*[@text='"+text+"']/.."),0.1, 0.9);
+        swipe(elementByXpath("//*[@text='" + text + "']/.."), 0.1, 0.9);
         return this;
     }
 
     public BaseTest swipeRight(String text) {
-        swipe(elementByXpath("//*[@text='"+text+"']/.."),0.9, 0.1);
+        swipe(elementByXpath("//*[@text='" + text + "']/.."), 0.9, 0.1);
         return this;
     }
 
 
     public BaseTest dragAndDrop(String origem, String destino) {
-        MobileElement inicio = (MobileElement) driver.findElement(By.xpath("//*[@text='"+origem+"']"));
-        MobileElement fim = (MobileElement) driver.findElement(By.xpath("//*[@text='"+destino+"']"));
+        MobileElement inicio = (MobileElement) driver.findElement(By.xpath("//*[@text='" + origem + "']"));
+        MobileElement fim = (MobileElement) driver.findElement(By.xpath("//*[@text='" + destino + "']"));
 
-        new TouchAction(driver)
-                .longPress(inicio)
-                .moveTo(fim)
+        new TouchAction<>(driver)
+                .longPress(LongPressOptions.longPressOptions().withElement(
+                                ElementOption.element(inicio)))
+                .moveTo(PointOption.point(fim.getCenter()))
                 .release()
                 .perform();
         return this;
     }
 
     private String[] obterLista() {
-        List<MobileElement> elements =  driver.findElements(By.className("android.widget.TextView"));
+        List<MobileElement> elements = driver.findElements(By.className("android.widget.TextView"));
 
         String[] retorno = new String[elements.size()];
-        for(int i = 0; i < elements.size(); i++){
+        for (int i = 0; i < elements.size(); i++) {
             retorno[i] = elements.get(i).getText();
 //			System.out.print("\"" + retorno[i] + "\", ");
         }
         return retorno;
     }
 
-    public BaseTest entrarContextoWeb(){
+    public BaseTest entrarContextoWeb() {
         Set<String> contextHandles = driver.getContextHandles();
 //		for(String valor: contextHandles) {
 //			System.out.println(valor);
@@ -342,7 +351,7 @@ public class BaseTest {
         return this;
     }
 
-    public BaseTest sairContextoWeb(){
+    public BaseTest sairContextoWeb() {
         driver.context((String) driver.getContextHandles().toArray()[0]);
         return this;
     }
