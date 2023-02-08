@@ -165,4 +165,18 @@ public class MainTest extends BaseTest {
 
     }
 
+
+    @Test
+    public void clicarEmCordenada() {
+
+        acessarMenuPrincipal("Alertas")
+                .click(elementBytext("ALERTA SIMPLES"))
+                .esperar(2);
+
+        MobileElement info = elementBytext("Info");
+
+        tapCordinate(200, 200)
+                .aguardarElementoSumir(info);
+    }
+
 }

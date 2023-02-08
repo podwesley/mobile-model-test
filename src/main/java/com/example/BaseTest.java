@@ -2,6 +2,7 @@ package com.example;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Assert;
@@ -135,9 +136,24 @@ public class BaseTest {
     }
 
     public BaseTest efetuarValidacao(String texto) {
-        Assert.assertTrue("Não achou nenhum elemento", existeElementoPorTexto(texto));
+        Assert.assertTrue("Não achou nenhum elemento: ", existeElementoPorTexto(texto));
         return this;
     }
+
+    public BaseTest tapCordinate (int x , int y)  {
+        new TouchAction(driver).tap(x, y).perform();
+        return this;
+    }
+
+    public BaseTest esperar (int segundos) {
+        try {
+            Thread.sleep(segundos * 1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return this;
+    }
+
 
 
 }
