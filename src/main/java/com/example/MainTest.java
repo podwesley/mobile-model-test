@@ -141,4 +141,15 @@ public class MainTest extends BaseTest {
 
     }
 
+    @Test
+    public void datePicker () {
+
+        acessarMenuPrincipal("Formulário")
+                .click(elementBytext("01/01/2000"))
+                .click(elementBytext("2000"))
+                .click(elementBytext("2004"))
+                .click(elementBytext("OK"))
+                .efetuarValidacao("01/01/2004");
+
+    }
 }
