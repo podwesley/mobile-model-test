@@ -41,6 +41,9 @@ public class BaseTest {
 
     }
 
+    /**
+     * Hooks reseta o app toda vez que um teste é executado , método mais rápido.
+     */
     @After
     public void tearDown() {
         driver.resetApp();
@@ -140,6 +143,12 @@ public class BaseTest {
         return this;
     }
 
+    /***
+     * clicar em uma cordenada especifica
+     * @param x
+     * @param y
+     * @return
+     */
     public BaseTest tapCordinate (int x , int y)  {
         new TouchAction(driver).tap(x, y).perform();
         return this;
@@ -151,6 +160,27 @@ public class BaseTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        return this;
+    }
+
+    /***
+     * Clica em um seekbar.
+     * @param posicao
+     * @return
+     */
+    public BaseTest clicarSeekBar (double posicao) {
+
+        int delta = 50;
+
+
+        WebElement seek = driver.findElement(MobileBy.AccessibilityId("slid"));
+        int y = seek.getLocation().y + (seek.getSize().height / 2);
+
+        int xInicial = seek.getLocation().x + delta;
+        int x = (int) (xInicial + ((seek.getSize().width - 2 * delta) * posicao));
+
+        new TouchAction(driver).tap(x, y).perform();
+
         return this;
     }
 

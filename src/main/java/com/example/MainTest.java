@@ -179,4 +179,15 @@ public class MainTest extends BaseTest {
                 .aguardarElementoSumir(info);
     }
 
+    @Test
+    public void seekbar() {
+
+        acessarMenuPrincipal("Formulário")
+                .clicarSeekBar(0.55)
+                .click(elementBytext("SALVAR"))
+                .efetuarValidacao("Slider: 25");
+
+
+    }
+
 }
