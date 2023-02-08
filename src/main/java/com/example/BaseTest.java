@@ -1,5 +1,6 @@
 package com.example;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
@@ -86,8 +87,9 @@ public class BaseTest {
      * @param value
      * @return
      */
-    public void typeValue(WebElement element, String value) {
+    public BaseTest typeValue(WebElement element, String value) {
         element.sendKeys(value);
+        return this;
     }
 
     public void xpathExamples() {
@@ -104,6 +106,10 @@ public class BaseTest {
 
     public MobileElement elementByClass(String className) {
         return (MobileElement) driver.findElement(By.className(className));
+    }
+
+    public MobileElement elementByAccessibilityId(String id) {
+        return (MobileElement) driver.findElement(MobileBy.AccessibilityId(id));
     }
 
     public MobileElement elementByXpath(String xpath) {

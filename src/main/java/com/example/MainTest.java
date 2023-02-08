@@ -142,7 +142,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void datePicker () {
+    public void datePicker() {
 
         acessarMenuPrincipal("Formulário")
                 .click(elementBytext("01/01/2000"))
@@ -152,4 +152,17 @@ public class MainTest extends BaseTest {
                 .efetuarValidacao("01/01/2004");
 
     }
+
+    @Test
+    public void timePicker() {
+
+        acessarMenuPrincipal("Formulário")
+                .click(elementBytext("12:00"))
+                .click(elementByAccessibilityId("12"))
+                .click(elementByAccessibilityId("35"))
+                .click(elementBytext("OK"))
+                .efetuarValidacao("12:35");
+
+    }
+
 }
