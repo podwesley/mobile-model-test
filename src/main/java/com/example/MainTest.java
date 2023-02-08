@@ -220,4 +220,16 @@ public class MainTest extends BaseTest {
                 .click(elementBytext("OK"));
 
     }
+    @Test
+    public void swipeTest() {
+        acessarMenuPrincipal("Swipe")
+                .efetuarValidacao("a esquerda")
+                .swipe(0.9,0.1)
+                .efetuarValidacao("você consegue")
+                .click(elementBytext("›"))
+                .efetuarValidacao("Chegar até o fim!")
+                .swipe(0.1,0.9)
+                .click(elementBytext("‹"))
+                .efetuarValidacao("a esquerda");
+    }
 }

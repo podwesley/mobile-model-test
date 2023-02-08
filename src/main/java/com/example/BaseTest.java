@@ -221,4 +221,21 @@ public class BaseTest {
 
         return this;
     }
+    public BaseTest swipe(double inicio, double fim) {
+
+        Dimension size = driver.manage().window().getSize();
+
+        int y = size.height / 2;
+        int start_x = (int) (size.width * inicio);
+        int end_x = (int) (size.width * fim);
+
+        new TouchAction(driver)
+                .press(start_x, y)
+                .waitAction(Duration.ofMillis(500))
+                .moveTo(end_x, y)
+                .release()
+                .perform();
+
+        return this;
+    }
 }
