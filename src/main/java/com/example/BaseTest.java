@@ -143,6 +143,11 @@ public class BaseTest {
         return this;
     }
 
+    public BaseTest efetuarValidacao(By by, String text) {
+        Assert.assertEquals("Não achou nenhum elemento: ", driver.findElement(by).getText(), text);
+        return this;
+    }
+
     /***
      * clicar em uma cordenada especifica
      * @param x
@@ -184,6 +189,13 @@ public class BaseTest {
         return this;
     }
 
+    public BaseTest cliqueLongo() {
+        new TouchAction(driver)
+                .longPress(driver.findElement(By.xpath("//*[@text='Clique Longo']")))
+                .release()
+                .perform();
+        return this;
+    }
 
 
 }

@@ -180,13 +180,32 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void seekbar() {
+    public void seekBar() {
 
         acessarMenuPrincipal("Formulário")
-                .clicarSeekBar(0.55)
+                .clicarSeekBar(0.05)
                 .click(elementBytext("SALVAR"))
-                .efetuarValidacao("Slider: 25");
+                .efetuarValidacao("Slider: 5");
 
+
+    }
+
+    @Test
+    public void cliqueLongoTest () {
+
+        acessarMenuPrincipal("Cliques")
+                .cliqueLongo()
+                .efetuarValidacao(By.xpath("(//android.widget.TextView)[3]"), "Clique Longo");
+
+    }
+
+    @Test
+    public void cliqueDuplo () {
+
+        acessarMenuPrincipal("Cliques")
+                .click(elementBytext("Clique Duplo"))
+                .click(elementBytext("Clique Duplo"))
+                .efetuarValidacao(By.xpath("(//android.widget.TextView)[3]"), "Clique Duplo");
 
     }
 
