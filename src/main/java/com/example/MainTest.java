@@ -2,7 +2,6 @@ package com.example;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -88,23 +87,23 @@ public class MainTest extends BaseTest {
 
         String text = obterTexto("Console: ps4");
 
-        Assert.assertEquals("Console: ps4",text);
+        Assert.assertEquals("Console: ps4", text);
     }
 
     @Test
-    public void deveAguardarSplashSumir () {
+    public void deveAguardarSplashSumir() {
 
         acessarMenuPrincipal("Splash");
         Assert.assertTrue("Não achou ", isTelaSplashVisivel("Splash!"));
         aguardarElementoSumir(elementBytext("Splash!"));
     }
 
-    private boolean isTelaSplashVisivel (String texto) {
+    private boolean isTelaSplashVisivel(String texto) {
         return existeElementoPorTexto(texto);
     }
 
     @Test
-    public void deveConfirmarAlerta () {
+    public void deveConfirmarAlerta() {
 
         acessarMenuPrincipal("Alertas")
                 .click(elementBytext("ALERTA CONFIRM"));
@@ -122,13 +121,23 @@ public class MainTest extends BaseTest {
 
 
     @Test
-    public void acessarAbas () {
+    public void acessarAbas() {
 
         acessarMenuPrincipal("Abas")
                 .click(elementBytext("Aba 1"))
                 .efetuarValidacao("Este é o conteúdo da Aba 1")
                 .click(elementBytext("Aba 2"))
                 .efetuarValidacao("Este é o conteúdo da Aba 2");
+
+    }
+
+    @Test
+    public void options() {
+
+        acessarMenuPrincipal("Accordion");
+        MobileElement mobileElement = elementBytext("Opção 1");
+        click(mobileElement)
+                .efetuarValidacao("Esta é a descrição da opção 1");
 
     }
 
