@@ -120,4 +120,16 @@ public class MainTest extends BaseTest {
 
     }
 
+
+    @Test
+    public void acessarAbas () {
+
+        acessarMenuPrincipal("Abas")
+                .click(elementBytext("Aba 1"))
+                .efetuarValidacao("Este é o conteúdo da Aba 1")
+                .click(elementBytext("Aba 2"))
+                .efetuarValidacao("Este é o conteúdo da Aba 2");
+
+    }
+
 }
