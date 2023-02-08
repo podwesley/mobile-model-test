@@ -11,7 +11,7 @@ import java.util.List;
 public class MainTest extends BaseTest {
 
     @Test
-    public void editText() {
+    public void editTextTest() {
 
         //android.widget.TextView[@text='Formulário']
         List<MobileElement> elements = driver.findElements(By.className("android.widget.TextView"));
@@ -24,7 +24,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void iteracaoCombo() {
+    public void iteracaoComboTest() {
 
         System.out.println("usando xpath");
         // class[@attr='node detail']
@@ -41,7 +41,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void iteracaoSwichCheckBox() {
+    public void iteracaoSwichCheckBoxTest() {
 
         acessarMenuPrincipal("Formulário");
 
@@ -63,7 +63,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void iteracaoSwichCheckBoxMelhorado() {
+    public void iteracaoSwichCheckBoxMelhoradoTest() {
 
         acessarMenuPrincipal("Formulário");
 
@@ -76,7 +76,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void cadastroEsperas() {
+    public void cadastroEsperasTest() {
 
         String console = "PS4";
 
@@ -91,7 +91,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void deveAguardarSplashSumir() {
+    public void deveAguardarSplashSumirTest() {
 
         acessarMenuPrincipal("Splash");
         Assert.assertTrue("Não achou ", isTelaSplashVisivel("Splash!"));
@@ -103,7 +103,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void deveConfirmarAlerta() {
+    public void deveConfirmarAlertaTest() {
 
         acessarMenuPrincipal("Alertas")
                 .click(elementBytext("ALERTA CONFIRM"));
@@ -121,7 +121,7 @@ public class MainTest extends BaseTest {
 
 
     @Test
-    public void acessarAbas() {
+    public void acessarAbasTest() {
 
         acessarMenuPrincipal("Abas")
                 .click(elementBytext("Aba 1"))
@@ -132,7 +132,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void options() {
+    public void optionsTest() {
 
         acessarMenuPrincipal("Accordion");
         MobileElement mobileElement = elementBytext("Opção 1");
@@ -142,7 +142,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void datePicker() {
+    public void datePickerTest() {
 
         acessarMenuPrincipal("Formulário")
                 .click(elementBytext("01/01/2000"))
@@ -154,7 +154,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void timePicker() {
+    public void timePickerTest() {
 
         acessarMenuPrincipal("Formulário")
                 .click(elementBytext("12:00"))
@@ -167,7 +167,7 @@ public class MainTest extends BaseTest {
 
 
     @Test
-    public void clicarEmCordenada() {
+    public void clicarEmCordenadaTest() {
 
         acessarMenuPrincipal("Alertas")
                 .click(elementBytext("ALERTA SIMPLES"))
@@ -180,7 +180,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void seekBar() {
+    public void seekBarTest() {
 
         acessarMenuPrincipal("Formulário")
                 .clicarSeekBar(0.05)
@@ -200,7 +200,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void cliqueDuplo () {
+    public void cliqueDuploTest () {
 
         acessarMenuPrincipal("Cliques")
                 .click(elementBytext("Clique Duplo"))
